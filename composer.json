@@ -1,4 +1,13 @@
 {
+    "name": "rost/logger",
+    "description": "Simple psr-3 logger with Factory and Singleton patterns implementation",
+    "type": "library",
+    "autoload": {
+        "psr-4": {
+            "Rost\\Logger\\": "src/"
+        }
+    },
+    "minimum-stability": "stable",
     "require": {
         "psr/log": "^3.0"
     }
