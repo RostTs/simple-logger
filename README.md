@@ -4,8 +4,7 @@ Simple psr-3 logger with Factory and Singleton patterns implementation
 # Installation
 
 ```bash
-git clone git@github.com:RostTs/simple-logger.git
-composer install
+composer require rost/logger
 ```
 
 # Requirements
