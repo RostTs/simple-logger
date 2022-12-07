@@ -10,6 +10,7 @@
     "minimum-stability": "stable",
         "require": {
         "php": ">=8.1",
-        "psr/log": "^3.0"
+        "psr/log": "^3.0",
+        "devcoder-xyz/php-dotenv": "^1.1"
     }
 }

@@ -2,25 +2,29 @@
 
 namespace Simple\Logger\Logger;
 
-use Psr\Log\AbstractLogger;
 use Simple\Logger\Handlers\HandlerInterface;
 use Simple\Logger\Singleton\Singleton;
+use Psr\Log\LoggerInterface;
+use Psr\Log\LoggerTrait;
 
-class Logger extends AbstractLogger{
 
-    use Singleton;
+class Logger extends Singleton implements LoggerInterface {
 
-    public function __construct(private HandlerInterface $handler)
-    {}
+    use LoggerTrait;
+
+    private HandlerInterface $handler;
+
+    public function settings(HandlerInterface $handler)
+    {
+        $this->handler = $handler;
+    }
 
     /**
      * {@inheritDoc}
      */
     public function log(mixed $level, string|\Stringable $message, array $context = []): void
     {
-        $this->handler->handle([
-            strtoupper($level) => $this->interpolate((string)$message, $context),
-        ]);
+        $this->handler->write(strtoupper($level), $this->interpolate((string)$message, $context));
     }
 
     /**

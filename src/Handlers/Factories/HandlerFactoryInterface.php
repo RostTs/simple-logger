@@ -7,9 +7,12 @@ use Simple\Logger\Handlers\HandlerInterface;
 interface HandlerFactoryInterface
 {
     /**
-     * @param string $filename
-     * 
      * @return HandlerInterface
      */
-    public static function create(string $filename): HandlerInterface;
+    public static function create(): HandlerInterface;
+
+    /**
+     * @return object
+     */
+    public static function getInstance(): object;
 }

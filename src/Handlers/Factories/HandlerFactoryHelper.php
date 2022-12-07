@@ -2,18 +2,14 @@
 
 namespace Simple\Logger\Handlers\Factories;
 
-use Simple\Logger\Enums\Handler;
-
 class HandlerFactoryHelper
 {
     /**
-     * @param Handler $handlerType
+     * @param string $handlerType
      * 
-     * @return HandlerInterface
+     * @return HandlerFactoryInterface
      */
-    public static function getHandlerFactory(Handler $handlerType): HandlerFactoryInterface {
-        if ($handlerType === Handler::FILE) {
-            return new FileHandlerFactory();
-        }
+    public static function getHandlerFactory(string $handlerType): HandlerFactoryInterface {
+            return $handlerType::getInstance();
     }
 }

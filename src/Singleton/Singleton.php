@@ -2,22 +2,19 @@
 
 namespace Simple\Logger\Singleton;
 
-trait Singleton
+class Singleton
 {
     private static $instances = [];
 
-    // TODO: make it array of dependencies
     /**
-     * @param object|null $dependency
-     * 
      * @return object
      */
-    public static function getInstance(?object $dependency = null): object
+    public static function getInstance(): object
     {
         $subclass = static::class;
        
         if (!isset(self::$instances[$subclass])) {
-            self::$instances[$subclass] = new static($dependency);
+            self::$instances[$subclass] = new static();
         }
         return self::$instances[$subclass];
     }

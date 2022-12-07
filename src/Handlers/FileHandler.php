@@ -2,27 +2,42 @@
 
 namespace Simple\Logger\Handlers;
 
-class FileHandler implements HandlerInterface
-{
+use Simple\Logger\Singleton\Singleton;
 
-    public function __construct(private string $filename)
+class FileHandler extends Singleton implements HandlerInterface
+{
+    private $file;
+
+    /**
+     * @param string $filename
+     */
+    public function settings(string $filename): void
     {
         $file = dirname($filename);
         // Creating directory for logs
         if (!file_exists($file)) {
             mkdir($file, 0777, true);
         }
+        $this->file = fopen($filename, 'a'); 
     }
 
-    
     /**
-     * @param array $logs
+     * @param string $logName
+     * @param string $message
      */
-    public function handle(array $logs): void {
+    public function write(string $logName, string $message): void {
         // Modifying log before logging
-        foreach ($logs as $logName => $logMsg) {
-            $log = date("Y:m:d") . ' - ' . $logName . ': ' . $logMsg;
-            file_put_contents($this->filename, $log. PHP_EOL, FILE_APPEND);
-        }
+        fwrite($this->file, $this->modifyMessage($logName, $message));
+    }
+
+    /**
+     * @param string $logName
+     * @param string $message
+     * 
+     * @return string
+     */
+    public function modifyMessage(string $logName, string $message): string {
+        // Modifying log before logging
+        return date("Y:m:d") . ' - ' . $logName . ': ' . $message . PHP_EOL;
     }
 }
